@@ -82,7 +82,7 @@ train_data, validation_data, test_data = TabularDataset.splits(
     path='../DataGenerate/',
     train='trainDataSet20000.csv',
     validation='testDataSet20000.csv',
-    test='testDataSet20000.csv',
+    test='test.csv',
     format='csv',
     skip_header=True,
     fields=fields
@@ -438,17 +438,17 @@ if __name__ == '__main__':
         dim_feedforward=2048,
         dropout=0.3
     )
-    # load_state_dict = torch.load('../trained_models/120model.pt')
-    # model.load_state_dict(load_state_dict)
+    load_state_dict = torch.load('../transformer_models/100model_5.pt')
+    model.load_state_dict(load_state_dict)
 
-    model_train_method(
-        model=model,
-        epoch_num=200,
-        lr=0.1
-    )
+    # model_train_method(
+    #     model=model,
+    #     epoch_num=200,
+    #     lr=0.1
+    # )
     # named_parameters = model.named_parameters()
     # params_0 = [p for n, p in named_parameters]
     # temp = [n for n, p in named_parameters]
     #
-    # model_test_method(model=model)
+    model_test_method(model=model)
     # model_test_method2(model=model)

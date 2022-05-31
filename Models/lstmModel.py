@@ -78,7 +78,7 @@ train_data, validation_data, test_data = TabularDataset.splits(
     path='../DataGenerate/',
     train='trainDataSet20000.csv',
     validation='testDataSet20000.csv',
-    test='testDataSet20000.csv',
+    test='test.csv',
     format='csv',
     skip_header=True,
     fields=fields
@@ -257,8 +257,6 @@ class Decoder(nn.Module):
 class Seq2Seq(nn.Module):
     def __init__(
             self,
-            src_vocab_size,
-            tgt_vocab_size,
             enc_hidden_size,
             dec_hidden_size
     ):
@@ -400,12 +398,10 @@ def test(model: nn.Module):
 
 if __name__ == '__main__':
     model = Seq2Seq(
-        src_vocab_size=src_vocab_size,
-        tgt_vocab_size=tgt_vocab_size,
-        enc_hidden_size=1024,
-        dec_hidden_size=1024
+        enc_hidden_size=2048,
+        dec_hidden_size=2048
     )
-    load_state_dict = torch.load('../lstm_models/20lstmModel.pt')
+    load_state_dict = torch.load('../lstm_models/4lstmModel_1.pt')
     model.load_state_dict(load_state_dict)
     # train(
     #     model=model,

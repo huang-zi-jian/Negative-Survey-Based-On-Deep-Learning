@@ -6,7 +6,7 @@ file info: 实现NStoPS-I算法
 import numpy as np
 
 
-def NStoP2_1(R):
+def NStoPS_1(R):
     '''
 
     :param R: 负调查结果
@@ -70,5 +70,5 @@ def NStoP2_1(R):
 
 
 if __name__ == '__main__':
-    R = (143, 849, 3103, 5952, 5893, 3115, 945)
-    print(NStoP2_1(R))
+    R = (89,84,85,81,84)
+    print(NStoPS_1(R))

@@ -33,26 +33,30 @@ class DataGen:
             'uniform': np.random.uniform(low=-0.5, high=c - 0.5, size=N),
             'normal': np.random.normal(loc=int(c / 2), scale=random.uniform(0.7, 0.8), size=N),
             'exponential': np.random.exponential(scale=random.uniform(0.7, 0.8), size=N),
-            # 'log-normal': np.random.lognormal(mean=random.uniform(1.3, 1.5), sigma=random.uniform(0.9, 1), size=N)
+            # 'log-normal': np.random.lognormal(mean=random.uniform(1.3, 1.5),   sigma=random.uniform(0.9, 1), size=N)
         }[random.choice(['uniform', 'normal', 'exponential'])]
         # InvestigationDataSet = np.random.normal(loc=c / 2, scale=scale, size=N)
         # InvestigationDataSet = np.random.uniform(low=-0.5, high=c + 0.5, size=N)
 
         # bins初始设置最左边界为一个无穷小的值
-        bins = [-1.0e12]
+        # bins = [-1.0e12]
+        bins = [-0.5]
         for i in range(c):
             bins.append(i + 0.5)
         # 弹出bins最右边界，设置为一个无穷大的值
         bins.pop()
-        bins.append(1.0e12)
+        # bins.append(1.0e12)
+        bins.append(c - 0.5)
 
         # 设置选项序号作为下面划分区间的标签
         lables = []
         for i in range(c):
             lables.append(i)
 
+        dataset = InvestigationDataSet
+        dataset = dataset[(dataset >= -0.5) & (dataset <= c - 0.5)]
         # 将正调查数据集进行指定区间的统计划分，lables参数默认为None，这里将lables设置为False就可以使用自然数的类型标签
-        statisData = pd.cut(InvestigationDataSet, bins=bins, right=False, labels=lables)
+        statisData = pd.cut(dataset, bins=bins, right=False, labels=lables)
         # temp = statisData.value_counts()
 
         # 初始化正调查数据集和对应的负调查数据集
@@ -108,11 +112,11 @@ def split_data(
 
 
 if __name__ == '__main__':
-    # data_gen = DataGen(N_min=400, N_max=450, c_min=5, c_max=5)
-    # data_gen.save_to_file(file='DataSet20000.csv', batch_size=20000)
-    split_data(
-        split_file='DataSet20000.csv',
-        train_file='trainDataSet20000.csv',
-        test_file='testDataSet20000.csv',
-        train_ratio=0.8
-    )
+    data_gen = DataGen(N_min=400, N_max=450, c_min=5, c_max=5)
+    data_gen.save_to_file(file='testDataSet1000.csv', batch_size=1000)
+    # split_data(
+    #     split_file='DataSet20000.csv',
+    #     train_file='trainDataSet20000.csv',
+    #     test_file='testDataSet20000.csv',
+    #     train_ratio=0.8
+    # )
